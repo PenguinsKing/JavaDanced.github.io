@@ -10,7 +10,7 @@ actions:
     link: /
     type: primary
   - text: 【java】
-    link: /java/
+    link: /note/
   - text: 【关于博主】
     link: /about/
   - text: 【GitHub】
