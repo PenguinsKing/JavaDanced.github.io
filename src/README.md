@@ -12,9 +12,9 @@ actions:
   - text: 【java】
     link: /note/
   - text: 【关于博主】
-    link: /about/
+    link: /note/
   - text: 【GitHub】
-    link: /about/
+    link: /note/
 
 ---
 
