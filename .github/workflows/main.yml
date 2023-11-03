@@ -1,33 +1,24 @@
-name: build-deploy
-
+# 以下以一个构建vue项目的yml文件为例子
+name: CI
+ 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    push:
+        branches:
+            - main # 这里只配置了main分支，所以只有推送main分支才会触发以下任务
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Set up Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-
-    - name: Install Dependent Node Pkgs
-      run: npm install
-    
-    - name: Build
-      run: chmod +x ./build.sh && ./build.sh
-
-    - name: Commit and Push
-      run: |-
-        git config --global user.email "lovelvqingqing@gmail.com"
-        git config --global user.name "Dable Lv"
-        git add -A
-        git commit -m "build:auto build and deploy"
-        git push
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "14.x"
+            - run: node -v
+            - run: npm install
+            - run: npm run build
+            - name: Deploy # 部署
+              uses: JamesIves/github-pages-deploy-action@v4.3.3
+              with:
+                  branch: gh-pages # 部署后提交到那个分支
+                  folder: dist # 这里填打包好的目录名称
